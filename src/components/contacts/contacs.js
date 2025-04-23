@@ -26,5 +26,22 @@ function Contact() {
       </div>
     );
 }
+async function GetContacs(groupId) {
+  try {
+    const response = await fetch(`${validbackendUrl}/api/contacts?id=${groupId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await response.json();
+    return data;
+
+  } catch (error) {
+    console.error('Error fetching group:', error);
+    throw error;
+  }
+}
+
 
 export default Contacs;
