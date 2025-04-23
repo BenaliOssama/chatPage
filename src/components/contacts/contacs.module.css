@@ -23,8 +23,9 @@
 }
 
 .info {
+  margin: 5px;
+  padding : 5px;
   width: 80%;
-  justify-content: start;
 }
 
 
