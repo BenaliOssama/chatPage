@@ -30,12 +30,11 @@ function Message() {
             className={styles.img}
           />
         </div>
-        <div className={styles.info}>
+        <div className={`${styles.info} ${styles.a}`}>
           <p>
             this is a very long message, this is a very long message this is a
             very long message, this is a very long message
           </p>
-          <button className={styles.online} />
         </div>
       </div>
 
@@ -52,7 +51,6 @@ function Message() {
             this is a very long message, this is a very long message this is a
             very long message, this is a very long message
           </p>
-          <button className={styles.online} />
         </div>
       </div>
     </div>
