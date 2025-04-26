@@ -4,9 +4,9 @@ import styles from "./contacs.module.css";
 import Image from "next/image";
 import ChatPopup from "./ChatPopup/ChatPopup.jsx"; // Import the ChatPopup component
 import { GetContacts } from "@/services/contacts";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
-function Contacs() {
+function Contacts() {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
@@ -37,14 +37,31 @@ function Contacs() {
 function Contact({ id, images, name, status }) {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatPosition, setChatPosition] = useState(null);
+  const contactRef = useRef(null);
 
   const handleContactClick = (e) => {
-    const rect = e.target.getBoundingClientRect(); // Get position of clicked contact
-    setChatPosition({
-      top: rect.top, // Align chat popup with the contact
-      left: rect.right + 10 , // Position it to the right of the contact with a little margin
-    });
-    setIsChatOpen(true); // Open the chat when contact is clicked
+    if (contactRef.current) {
+      const rect = contactRef.current.getBoundingClientRect();
+      const popupWidth = 300; // Example width of the chat popup
+      const popupHeight = 290; // Example height (if needed)
+
+      let top = rect.top;
+      let left = rect.right + 10;
+
+      // If not enough space on the right, show the popup on the left
+      if (left + popupWidth > window.innerWidth) {
+        left = rect.left - popupWidth - 10;
+      }
+
+      // Optional: adjust top if popup goes off bottom
+      if (top + popupHeight > window.innerHeight) {
+        top = window.innerHeight - popupHeight - 10;
+        if (top < 0) top = 10; // Don't go above the screen
+      }
+
+      setChatPosition({ top, left });
+    }
+    setIsChatOpen(true);
   };
 
   const handleCloseChat = () => {
@@ -52,9 +69,13 @@ function Contact({ id, images, name, status }) {
   };
 
   return (
-    <div>
+    <>
       {/* Contact Item */}
-      <div className={styles.contact} onClick={handleContactClick}>
+      <div
+        className={styles.contact}
+        onClick={handleContactClick}
+        ref={contactRef}
+      >
         <div className={styles.profilePic}>
           <Image
             src={`https://picsum.photos/50?random=${id}`}
@@ -81,8 +102,8 @@ function Contact({ id, images, name, status }) {
           onClose={handleCloseChat} // Close function
         />
       )}
-    </div>
+    </>
   );
 }
 
-export default Contacs;
+export default Contacts;
