@@ -1,7 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./ChatPopup.module.css"; // Ensure you create the CSS file and import it
 
 const ChatCard = ({ name, position, onClose }) => {
+  const cardRef = useRef(); // create a ref for the card
+
+  useEffect(() => {
+    function handleClickAnywhere() {
+      if (cardRef.current && !cardRef.current.contains(event.target)) {
+        console.log("Clicked outside ChatCard");
+        onClose();
+      }
+    }
+
+    document.addEventListener("click", handleClickAnywhere);
+
+    return () => {
+      document.removeEventListener("click", handleClickAnywhere);
+    };
+  }, []);
+
   const [message, setMessage] = useState(""); // State for input field
   const [messages, setMessages] = useState([
     // Example messages, these can be dynamic
@@ -24,9 +41,10 @@ const ChatCard = ({ name, position, onClose }) => {
       className={styles["chat-card"]}
       style={{
         position: "absolute",
-        top : position.top,
+        top: position.top,
         left: position.left, // `position` could be 'left' or 'right'
       }}
+      ref={cardRef}
     >
       {/* Chat Header */}
       <div className={styles["chat-header"]}>
