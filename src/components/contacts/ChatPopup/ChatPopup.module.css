@@ -1,6 +1,7 @@
-/* From Uiverse.io by ahmed150up */ 
+/* From Uiverse.io by ahmed150up */
 .chat-card {
-  width: 300px;
+  position: absolute;
+  z-index: 100;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

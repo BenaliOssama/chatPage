@@ -1,11 +1,10 @@
-"use client"
+"use client";
 
 import styles from "./contacs.module.css";
-import Image from 'next/image'
-import ChatPopup from './ChatPopup/ChatPopup.jsx';  // Import the ChatPopup component
+import Image from "next/image";
+import ChatPopup from "./ChatPopup/ChatPopup.jsx"; // Import the ChatPopup component
 import { GetContacts } from "@/services/contacts";
-import { useState, useEffect } from 'react';
-
+import { useState, useEffect } from "react";
 
 function Contacs() {
   const [contacts, setContacts] = useState([]);
@@ -13,7 +12,7 @@ function Contacs() {
   useEffect(() => {
     const fetchContacts = async () => {
       const fetchedContacts = await GetContacts();
-      console.log('contact fetched:', fetchedContacts);
+      console.log("contact fetched:", fetchedContacts);
       setContacts(fetchedContacts);
     };
 
@@ -35,12 +34,17 @@ function Contacs() {
   );
 }
 
-
 function Contact({ id, images, name, status }) {
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [chatPosition, setChatPosition] = useState(null);
 
-  const handleContactClick = () => {
-    setIsChatOpen(true);
+  const handleContactClick = (e) => {
+    const rect = e.target.getBoundingClientRect(); // Get position of clicked contact
+    setChatPosition({
+      top: rect.top, // Align chat popup with the contact
+      left: rect.right + 10 , // Position it to the right of the contact with a little margin
+    });
+    setIsChatOpen(true); // Open the chat when contact is clicked
   };
 
   const handleCloseChat = () => {
@@ -60,7 +64,9 @@ function Contact({ id, images, name, status }) {
             className={styles.profileImage}
           />
           {/* Status indicator */}
-          <div className={status === "online" ? styles.online : styles.offline}></div>
+          <div
+            className={status === "online" ? styles.online : styles.offline}
+          ></div>
         </div>
         <div className={styles.info}>
           <p>{name}</p>
@@ -68,12 +74,15 @@ function Contact({ id, images, name, status }) {
       </div>
 
       {/* Chat Popup */}
-      {isChatOpen && <ChatPopup name={name} onClose={handleCloseChat} />}
+      {isChatOpen && chatPosition && (
+        <ChatPopup
+          name={name}
+          position={chatPosition} // Pass the dynamic position
+          onClose={handleCloseChat} // Close function
+        />
+      )}
     </div>
   );
 }
-
-
-
 
 export default Contacs;
