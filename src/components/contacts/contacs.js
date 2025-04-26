@@ -26,7 +26,7 @@ function Contacs() {
         <Contact
           key={i}
           id={contact.id}
-          images={contact.images}
+          images={contact.image}
           name={contact.name}
           status={contact.status}
         />
@@ -53,7 +53,7 @@ function Contact({ id, images, name, status }) {
       <div className={styles.contact} onClick={handleContactClick}>
         <div className={styles.profilePic}>
           <Image
-            src={images}
+            src={`https://picsum.photos/50?random=${id}`}
             width={50}
             height={50}
             alt={name}
