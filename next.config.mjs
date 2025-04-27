@@ -4,7 +4,7 @@
 const nextConfig = {
   images: {
     // domains: ["loremfaces.net"], // add your image domain here
-    domains: ["picsum.photos"], // Add this line
+    domains: ["localhost:3100", "picsum.photos", "loremfaces.net"],
   },
 };
 
