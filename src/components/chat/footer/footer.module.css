@@ -1,6 +1,10 @@
 .inputContainer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: calc(100% - 250px);
     display: flex;
-    align-items: center;
+    align-items: end;
     justify-content: space-between;
     padding: 10px;
     border-top: 1px solid #ddd;
