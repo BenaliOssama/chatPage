@@ -1,24 +1,23 @@
 import styles from "./chat.module.css";
+import Header from "./header/header"
+import Footer from "./footer/footer"
 
 function Chat() {
   return (
     <div>
+      <Header />
       <div className={styles.chat}>
         {Array.from({ length: 10 }).map((_, i) => (
           <Message key={i} />
         ))}
       </div>
-      <div className={styles.inputContainer}>
-        <input
-          className={styles.inputMessage}
-          type="text"
-          placeholder="Type your message..."
-        />
-        <button>Send</button>
-      </div>
+      <Footer />
     </div>
   );
 }
+
+
+
 function Message() {
   return (
     <div>

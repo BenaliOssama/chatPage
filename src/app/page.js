@@ -1,6 +1,5 @@
 import styles from "./page.module.css";
 import Profile from "../components/profile/profile"
-import Header from "../components/header/header"
 import Contacts from "../components/contacts/contacs"
 import Chat from "../components/chat/chat"
 
@@ -28,7 +27,6 @@ function Side() {
 function Main() {
   return (
     <div className={styles.main}>
-      <Header />
       <Chat />
     </div>
   );

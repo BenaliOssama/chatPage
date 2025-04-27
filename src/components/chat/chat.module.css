@@ -50,38 +50,3 @@
   padding: 10px;
   margin-bottom: 10px;
 }
-
-.inputContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  border-top: 1px solid #ddd;
-  background-color: #4d4d4d;
-}
-
-.inputMessage {
-  width: 80%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  outline: none;
-}
-
-.inputMessage:focus {
-  border-color: #007bff;
-}
-
-.button {
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.button:hover {
-  background-color: #0056b3;
-}
