@@ -1,16 +1,15 @@
+"use client"
+
 import styles from "./chat.module.css";
 import Header from "./header/header"
 import Footer from "./footer/footer"
+import ChatBody from "./chatBody/chatBody";
 
 function Chat() {
   return (
-    <div>
+    <div className={styles.relative}>
       <Header />
-      <div className={styles.chat}>
-        {Array.from({ length: 10 }).map((_, i) => (
-          <Message key={i} />
-        ))}
-      </div>
+      <ChatBody />
       <Footer />
     </div>
   );

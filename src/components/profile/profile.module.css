@@ -8,8 +8,8 @@
   background-color: var(--color-gray-light);
   gap: 1rem;
   box-sizing: border-box;
-  border-radius: 8px;
   box-shadow: 0 2px 4px var(--color-gray-light);
+  border-bottom: 1px solid black;
 }
 .profileContainer {
   width: 100%;

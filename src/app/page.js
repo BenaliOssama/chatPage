@@ -21,9 +21,6 @@ function Side() {
   );
 }
 
-
-
-
 function Main() {
   return (
     <div className={styles.main}>
@@ -31,4 +28,3 @@ function Main() {
     </div>
   );
 }
-
