@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./chatBody.module.css"; // Ensure you create the CSS file and import it
 
-const ChatBody = ({ name, position, onClose }) => {
+const ChatBody = ({ name }) => {
   const cardRef = useRef(); // create a ref for the card
   const chatBodyRef = useRef(); // Add ref for chat body
 
@@ -15,21 +15,6 @@ const ChatBody = ({ name, position, onClose }) => {
       type: "incoming",
     },
   ]);
-
-  useEffect(() => {
-    function handleClickAnywhere() {
-      if (cardRef.current && !cardRef.current.contains(event.target)) {
-        console.log("Clicked outside ChatCard");
-        onClose();
-      }
-    }
-
-    document.addEventListener("click", handleClickAnywhere);
-
-    return () => {
-      document.removeEventListener("click", handleClickAnywhere);
-    };
-  }, []);
 
   useEffect(() => {
     if (chatBodyRef.current) {

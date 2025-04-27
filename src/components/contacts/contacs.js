@@ -2,11 +2,11 @@
 
 import styles from "./contacs.module.css";
 import Image from "next/image";
-import ChatPopup from "./ChatPopup/ChatPopup.jsx"; // Import the ChatPopup component
+import Chat from "@/components/chat/chat";
 import { GetContacts } from "@/services/contacts";
 import { useState, useEffect, useRef } from "react";
 
-function Contacts() {
+function Contacts({ setId }) {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
@@ -25,47 +25,23 @@ function Contacts() {
         <Contact
           key={i}
           id={contact.id}
-          images={contact.image}
+          image={contact.image}
           name={contact.name}
           status={contact.status}
+          setId={setId}
         />
       ))}
     </div>
   );
 }
 
-function Contact({ id, images, name, status }) {
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [chatPosition, setChatPosition] = useState(null);
+function Contact({ id, image, name, status, setId }) {
+  image = `https://picsum.photos/50?random=${id}`;
+
   const contactRef = useRef(null);
 
   const handleContactClick = (e) => {
-    if (contactRef.current) {
-      const rect = contactRef.current.getBoundingClientRect();
-      const popupWidth = 300; // Example width of the chat popup
-      const popupHeight = 290; // Example height (if needed)
-
-      let top = rect.top;
-      let left = rect.right + 10;
-
-      // If not enough space on the right, show the popup on the left
-      if (left + popupWidth > window.innerWidth) {
-        left = rect.left - popupWidth - 10;
-      }
-
-      // Optional: adjust top if popup goes off bottom
-      if (top + popupHeight > window.innerHeight) {
-        top = window.innerHeight - popupHeight - 10;
-        if (top < 0) top = 10; // Don't go above the screen
-      }
-
-      setChatPosition({ top, left });
-    }
-    setIsChatOpen(true);
-  };
-
-  const handleCloseChat = () => {
-    setIsChatOpen(false);
+    setId(id);
   };
 
   return (
@@ -78,7 +54,7 @@ function Contact({ id, images, name, status }) {
       >
         <div className={styles.profilePic}>
           <Image
-            src={`https://picsum.photos/50?random=${id}`}
+            src={image}
             width={50}
             height={50}
             alt={name}
@@ -93,15 +69,6 @@ function Contact({ id, images, name, status }) {
           <p>{name}</p>
         </div>
       </div>
-
-      {/* Chat Popup */}
-      {isChatOpen && chatPosition && (
-        <ChatPopup
-          name={name}
-          position={chatPosition} // Pass the dynamic position
-          onClose={handleCloseChat} // Close function
-        />
-      )}
     </>
   );
 }
