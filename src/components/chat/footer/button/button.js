@@ -1,8 +1,8 @@
 import styles from "./button.module.css";
 
-export default function Button() {
+export default function Button({ onClick }) {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} onClick={onClick}>
       <button className={styles.button}>
         <div className={styles.svgWrapper1}>
           <div className={styles.svgWrapper}>
